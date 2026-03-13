@@ -1,82 +1,113 @@
 package br.com.alura.screenmatch.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+@Entity
+@Table(name = "episodios")
 public class Episodio {
 
-  private Integer temporada;
-  private String titulo;
-  private Integer numeroEpisodio;
-  private Double avaliacao;
-  private LocalDate dataLancamento;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-  public Episodio(Integer numeroTemporada, DadosEpsodio dadosEpsodio) {
-    this.temporada = numeroTemporada;
-    this.titulo = dadosEpsodio.titulo();
-    this.numeroEpisodio = dadosEpsodio.numero();
+    private Integer temporada;
+    private String titulo;
+    private Integer numeroEpisodio;
+    private Double avaliacao;
+    private LocalDate dataLancamento;
 
-    try {
-      this.avaliacao = Double.valueOf(dadosEpsodio.avaliacao());
-    } catch (NumberFormatException ex) {
-      this.avaliacao = 0.0;
+    @ManyToOne
+    private Serie serie;
+
+
+    public Episodio() {
     }
 
-    try {
-      this.dataLancamento = LocalDate.parse(dadosEpsodio.dataLancamento());
-    } catch (DateTimeParseException ex) {
-      this.dataLancamento = null;
+    public Episodio(Integer numeroTemporada, DadosEpsodio dadosEpsodio) {
+        this.temporada = numeroTemporada;
+        this.titulo = dadosEpsodio.titulo();
+        this.numeroEpisodio = dadosEpsodio.numero();
+
+        try {
+            this.avaliacao = Double.valueOf(dadosEpsodio.avaliacao());
+        } catch (NumberFormatException ex) {
+            this.avaliacao = 0.0;
+        }
+
+        try {
+            this.dataLancamento = LocalDate.parse(dadosEpsodio.dataLancamento());
+        } catch (DateTimeParseException ex) {
+            this.dataLancamento = null;
+        }
+
     }
 
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public Integer getTemporada() {
-    return temporada;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public void setTemporada(Integer temporada) {
-    this.temporada = temporada;
-  }
+    public Serie getSerie() {
+        return serie;
+    }
 
-  public String getTitulo() {
-    return titulo;
-  }
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
 
-  public void setTitulo(String titulo) {
-    this.titulo = titulo;
-  }
+    public Integer getTemporada() {
+        return temporada;
+    }
 
-  public Integer getNumeroEpisodio() {
-    return numeroEpisodio;
-  }
+    public void setTemporada(Integer temporada) {
+        this.temporada = temporada;
+    }
 
-  public void setNumeroEpisodio(Integer numeroEpisodio) {
-    this.numeroEpisodio = numeroEpisodio;
-  }
+    public String getTitulo() {
+        return titulo;
+    }
 
-  public Double getAvaliacao() {
-    return avaliacao;
-  }
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-  public void setAvaliacao(Double avaliacao) {
-    this.avaliacao = avaliacao;
-  }
+    public Integer getNumeroEpisodio() {
+        return numeroEpisodio;
+    }
 
-  public LocalDate getDataLancamento() {
-    return dataLancamento;
-  }
+    public void setNumeroEpisodio(Integer numeroEpisodio) {
+        this.numeroEpisodio = numeroEpisodio;
+    }
 
-  public void setDataLancamento(LocalDate dataLancamento) {
-    this.dataLancamento = dataLancamento;
-  }
+    public Double getAvaliacao() {
+        return avaliacao;
+    }
+
+    public void setAvaliacao(Double avaliacao) {
+        this.avaliacao = avaliacao;
+    }
+
+    public LocalDate getDataLancamento() {
+        return dataLancamento;
+    }
+
+    public void setDataLancamento(LocalDate dataLancamento) {
+        this.dataLancamento = dataLancamento;
+    }
 
 
-  @Override
-  public String toString() {
-    return "temporada=" + temporada +
-      ", titulo='" + titulo + '\'' +
-      ", numeroEpisodio=" + numeroEpisodio +
-      ", avaliacao=" + avaliacao +
-      ", dataLancamento=" + dataLancamento;
-  }
+    @Override
+    public String toString() {
+        return "temporada=" + temporada +
+                ", titulo='" + titulo + '\'' +
+                ", numeroEpisodio=" + numeroEpisodio +
+                ", avaliacao=" + avaliacao +
+                ", dataLancamento=" + dataLancamento;
+    }
 }
