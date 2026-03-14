@@ -17,7 +17,7 @@ public class Serie {
     @Column(unique = true)
     private String titulo;
 
-    private Integer totalTemporadas;
+    private int totalTemporadas;
     private Double avaliacao;
 
     @Enumerated(EnumType.STRING)
@@ -68,11 +68,11 @@ public class Serie {
         this.titulo = titulo;
     }
 
-    public Integer getTotalTemporadas() {
+    public int getTotalTemporadas() {
         return totalTemporadas;
     }
 
-    public void setTotalTemporadas(Integer totalTemporadas) {
+    public void setTotalTemporadas(int totalTemporadas) {
         this.totalTemporadas = totalTemporadas;
     }
 
